@@ -49,7 +49,6 @@ public class CarController {
             System.out.println(car.getPositionX());
             System.out.println(car.getPositionY());
 
-
             if (((car.getPositionX() >= 700) || (car.getPositionX() < -10))&&(!collided)) {
                 car.stopEngine();
                 car.turnRight();
@@ -75,7 +74,6 @@ public class CarController {
         }
     }
 
-
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Vehicle car : cars) {
@@ -89,7 +87,6 @@ public class CarController {
             }
         }
     }
-
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
@@ -98,7 +95,6 @@ public class CarController {
             car.gas(gas);
         }
     }
-
     void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Vehicle car : cars
@@ -106,5 +102,4 @@ public class CarController {
             car.brake(brake);
         }
     }
-
 }

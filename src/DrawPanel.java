@@ -1,27 +1,24 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 // This panel represent the animated part of the view with the car images.
 
-public class DrawPanel <car  extends Vehicle>extends JPanel{
+public class DrawPanel extends JPanel{
 
-    car Vehicle;
+
 
     // Just a single image, TODO: Generalize
-    BufferedImage volvoImage;
-    // To keep track of a singel cars position
-    Point volvoPoint = new Point();
-    Point scaniaPoint = new Point();
+    BufferedImage carImage;
+    // To keep track of a single cars position
+    Point carPoint = new Point();
 
-    // TODO: Make this genereal for all cars
-    void moveit(){
-//        Point volvoPoint = new Point(car.getX(), car.getY());
-//        volvoPoint.x = x;
-//        volvoPoint.y = y;
+    // TODO: Make this general for all cars
+    void moveit(int x, int y){
+        carPoint.x = x;
+        carPoint.y = y;
     }
 
     // Initializes the panel and reads the images
@@ -37,7 +34,8 @@ public class DrawPanel <car  extends Vehicle>extends JPanel{
 
             // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
             // if you are starting in IntelliJ.
-            volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+
+            carImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();
@@ -50,6 +48,6 @@ public class DrawPanel <car  extends Vehicle>extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+        g.drawImage(carImage, carPoint.x, carPoint.y, null); // see javadoc for more info on the parameters
     }
 }
