@@ -6,7 +6,7 @@ import javax.swing.*;
 
 // This panel represent the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
+public class DrawPanel<V> extends JPanel{
 
 
 
@@ -36,6 +36,7 @@ public class DrawPanel extends JPanel{
             // if you are starting in IntelliJ.
 
             carImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+            carImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();

@@ -30,6 +30,8 @@ public class CarController {
         CarController cc = new CarController();
 
         cc.cars.add(new Volvo240());
+        cc.cars.add(new Saab95());
+        cc.cars.add(new Scania());
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -42,34 +44,37 @@ public class CarController {
      * view to update its images. Change this method to your needs.
      * */
 
-    public static class Collision<V extends Vehicle>{
+    public static class Collision<V extends Vehicle> {
         static boolean collided = false;
 
-        public static void checkCollision(Vehicle car){
+        public static void collided(Vehicle car) {
+            car.stopEngine();
+            car.turnRight();
+            car.turnRight();
+            car.startEngine();
+            car.gas(20);
+        }
+
+        public static void checkCollision(Vehicle car) {
             System.out.println(car.getPositionX());
             System.out.println(car.getPositionY());
 
-            if (((car.getPositionX() >= 700) || (car.getPositionX() < -10))&&(!collided)) {
-                car.stopEngine();
-                car.turnRight();
-                car.turnRight();
-                car.startEngine();
-                car.gas(20);
+            if (car.getPositionX() > 700) {
+                Collision.collided(car);
+                car.xPosition = 700;
 
-                collided = true;
 
-            }else if((((car.getPositionY() < -60) || car.getPositionY() > 740)) && (!collided)){
-                car.stopEngine();
-                car.turnRight();
-                car.turnRight();
-                car.startEngine();
-                car.gas(20);
-
-                collided = true;
-
-            }else{
-                collided = false;
-
+            } else if (car.getPositionX() < -10) {
+                Collision.collided(car);
+                car.xPosition = -10;
+            }
+            else if (car.getPositionY() > 740){
+                Collision.collided(car);
+                car.yPosition = 740;
+            }
+            else if (car.getPositionY() < -60){
+                Collision.collided(car);
+                car.yPosition = -60;
             }
         }
     }
@@ -81,12 +86,14 @@ public class CarController {
                 int x = (int) Math.round(car.getPositionX());
                 int y = (int) Math.round(car.getPositionY());
                 Collision.checkCollision(car);
-                frame.drawPanel.moveit(x,y);
+                frame.drawPanel.moveit(x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
+
             }
         }
     }
+
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
@@ -95,6 +102,7 @@ public class CarController {
             car.gas(gas);
         }
     }
+
     void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Vehicle car : cars
