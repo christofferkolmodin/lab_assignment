@@ -50,9 +50,8 @@ public class CarController {
     }
 
     public static class Collision<V extends Vehicle> {
-        static boolean collided = false;
 
-        public static void collided(Vehicle car) {
+        public static void stopAndTurnAround(Vehicle car) {
             car.stopEngine();
             car.turnRight();
             car.turnRight();
@@ -65,20 +64,20 @@ public class CarController {
             System.out.println(car.getPositionY());
 
             if (car.getPositionX() > 700) {
-                Collision.collided(car);
+                Collision.stopAndTurnAround(car);
                 car.xPosition = 700;
 
 
             } else if (car.getPositionX() < -10) {
-                Collision.collided(car);
+                Collision.stopAndTurnAround(car);
                 car.xPosition = -10;
             }
             else if (car.getPositionY() > 740){
-                Collision.collided(car);
+                Collision.stopAndTurnAround(car);
                 car.yPosition = 740;
             }
             else if (car.getPositionY() < -60){
-                Collision.collided(car);
+                Collision.stopAndTurnAround(car);
                 car.yPosition = -60;
             }
         }
@@ -89,16 +88,19 @@ public class CarController {
      * */
 
     private class TimerListener implements ActionListener {
+        private int index;
+
         public void actionPerformed(ActionEvent e) {
+            index = 0;
             for (Vehicle car : cars) {
                 car.move();
                 int x = (int) Math.round(car.getPositionX());
                 int y = (int) Math.round(car.getPositionY());
                 Collision.checkCollision(car);
-                frame.drawPanel.moveit(x, y);
+                frame.drawPanel.moveit(x, y, index);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
-
+                index++;
             }
         }
     }

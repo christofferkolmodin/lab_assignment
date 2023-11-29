@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class VehicleWorkshop<W extends Vehicle> {
+public class    VehicleWorkshop<W extends Vehicle> {
 
     private final ArrayList<W> vehiclesInWorkshop = new ArrayList<>();
     private int vehicleCapacity;
