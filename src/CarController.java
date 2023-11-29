@@ -29,9 +29,18 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240());
-        cc.cars.add(new Saab95());
-        cc.cars.add(new Scania());
+        Volvo240 volvo = new Volvo240();
+        volvo.yPosition = 0;
+        cc.cars.add(volvo);
+
+        Saab95 saab = new Saab95();
+        saab.yPosition = 100;
+        cc.cars.add(saab);
+
+        Scania scania = new Scania();
+        scania.yPosition = 200;
+        cc.cars.add(scania);
+
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -39,10 +48,6 @@ public class CarController {
         // Start the timer
         cc.timer.start();
     }
-
-    /* Each step the TimerListener moves all the cars in the list and tells the
-     * view to update its images. Change this method to your needs.
-     * */
 
     public static class Collision<V extends Vehicle> {
         static boolean collided = false;
@@ -79,6 +84,10 @@ public class CarController {
         }
     }
 
+    /* Each step the TimerListener moves all the cars in the list and tells the
+     * view to update its images. Change this method to your needs.
+     * */
+
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Vehicle car : cars) {
@@ -110,4 +119,59 @@ public class CarController {
             car.brake(brake);
         }
     }
+
+    void turboOn(){
+        for (Vehicle car : cars) {
+            if (car.modelName.equals("Saab95")) {
+                Saab95 saab = (Saab95) car;
+                saab.setTurboOn();
+            }
+        }
+    }
+
+    void turboOff(){
+        for (Vehicle car : cars) {
+            if (car.modelName.equals("Saab95")) {
+                Saab95 saab = (Saab95) car;
+                saab.setTurboOff();
+            }
+        }
+    }
+
+    void lowerBed(){
+        for (Vehicle car : cars) {
+            if (car.modelName.equals("Scania")) {
+                Scania scania = (Scania) car;
+                scania.lowerTrailer(70);
+            }
+        }
+
+    }
+
+    void liftBed(){
+        for (Vehicle car : cars) {
+            if (car.modelName.equals("Scania")) {
+                Scania scania = (Scania) car;
+                scania.raiseTrailer(70);
+            }
+        }
+
+    }
+
+    void start(){
+        for(Vehicle car : cars){
+            car.startEngine();
+
+        }
+
+    }
+
+    void stop(){
+        for(Vehicle car : cars){
+            car.stopEngine();
+
+        }
+
+    }
+
 }

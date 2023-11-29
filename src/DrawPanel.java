@@ -49,6 +49,8 @@ public class DrawPanel<V> extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(carImage, carPoint.x, carPoint.y, null); // see javadoc for more info on the parameters
+        for (int i = 0; i < carImages.size(); i++) {
+            g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null); // see javadoc for more info on the parameters
+        }
     }
 }
