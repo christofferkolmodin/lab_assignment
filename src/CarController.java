@@ -67,7 +67,6 @@ public class CarController {
                 Collision.stopAndTurnAround(car);
                 car.xPosition = 700;
 
-
             } else if (car.getPositionX() < -10) {
                 Collision.stopAndTurnAround(car);
                 car.xPosition = -10;
