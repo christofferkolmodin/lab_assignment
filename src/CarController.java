@@ -49,7 +49,7 @@ public class CarController {
         cc.timer.start();
     }
 
-    public static class Collision<V extends Vehicle> {
+    public static class Collision {
 
         public static void stopAndTurnAround(Vehicle car) {
             car.stopEngine();
