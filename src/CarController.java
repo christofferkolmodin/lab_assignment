@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /*
  * This class represents the Controller part in the MVC pattern.
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 
 public class CarController {
     // member fields:
-
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with an listener (see below) that executes the statements
@@ -49,8 +49,7 @@ public class CarController {
         cc.timer.start();
     }
 
-    public static class Collision {
-
+    private static class Collision {
         public static void stopAndTurnAround(Vehicle car) {
             car.stopEngine();
             car.turnRight();
@@ -87,10 +86,8 @@ public class CarController {
      * */
 
     private class TimerListener implements ActionListener {
-        private int index;
-
         public void actionPerformed(ActionEvent e) {
-            index = 0;
+            int index = 0;
             for (Vehicle car : cars) {
                 car.move();
                 int x = (int) Math.round(car.getPositionX());
@@ -146,7 +143,6 @@ public class CarController {
                 scania.lowerTrailer(70);
             }
         }
-
     }
 
     void liftBed(){
@@ -156,7 +152,6 @@ public class CarController {
                 scania.raiseTrailer(70);
             }
         }
-
     }
 
     void start(){
@@ -172,7 +167,5 @@ public class CarController {
             car.stopEngine();
 
         }
-
     }
-
 }
