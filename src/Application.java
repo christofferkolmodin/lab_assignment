@@ -13,8 +13,8 @@ public class Application {
     private static Timer timer = new Timer(delay, new TimerListener());
     // The frame that represents this instance View of the MVC pattern
     static CarView frame;
-    Collision collision;
-    ArrayList<Vehicle> cars = new ArrayList<>();
+    static Collection<Vehicle> cars = new ArrayList<>();
+
     public static void main(String[] args) {
         // Instance of this class
 
@@ -32,7 +32,7 @@ public class Application {
 
 
         // Start a new view and send a reference of self
-        CarView frame = new CarView("CarSim 1.0");
+        frame = new CarView("CarSim 1.0");
 
         // Start the timer
         timer.start();

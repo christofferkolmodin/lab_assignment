@@ -39,7 +39,8 @@ public class CarView extends JFrame{
 
     // Constructor
     public CarView(String framename){
-        CarController carC = new CarController();
+        carC = new CarController();
+        //NOTE: Is the array updated, and is it necessary?
         initComponents(framename);
     }
 
