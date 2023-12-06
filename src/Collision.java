@@ -1,32 +1,21 @@
 public class Collision {
+    public static boolean checkCollision(int x, int y) {
+//        System.out.println(vehicle.getPositionX());
+//        System.out.println(vehicle.getPositionY());
 
-    private static void stopAndTurnAround(Vehicle vehicle) {
-        vehicle.stopEngine();
-        vehicle.turnRight();
-        vehicle.turnRight();
-        vehicle.startEngine();
-        vehicle.gas((vehicle.getCurrentSpeed()/4));
-    }
+        if (x > 700) {
+            return true;
 
-    public static void checkCollision(Vehicle vehicle) {
-        System.out.println(vehicle.getPositionX());
-        System.out.println(vehicle.getPositionY());
+        } else if (x < -10) {
+            return true;
 
-        if (vehicle.getPositionX() > 700) {
-            stopAndTurnAround(vehicle);
-            vehicle.xPosition = 700;
+        } else if (y > 740) {
+            return true;
 
-        } else if (vehicle.getPositionX() < -10) {
-            stopAndTurnAround(vehicle);
-            vehicle.xPosition = -10;
+        } else if (y < -60) {
+            return true;
         }
-        else if (vehicle.getPositionY() > 740){
-            stopAndTurnAround(vehicle);
-            vehicle.yPosition = 740;
-        }
-        else if (vehicle.getPositionY() < -60){
-            stopAndTurnAround(vehicle);
-            vehicle.yPosition = -60;
-        }
+
+        return false;
     }
 }

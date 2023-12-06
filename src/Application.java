@@ -38,6 +38,20 @@ public class Application {
         timer.start();
     }
 
+    private static void stopAndTurnAround(Vehicle vehicle) {
+        if (vehicle.direction == Direction.RIGHT) {
+            vehicle.xPosition -= vehicle.getCurrentSpeed();
+        }
+        else if (vehicle.direction == Direction.LEFT) {
+            vehicle.xPosition += vehicle.getCurrentSpeed();
+        }
+        vehicle.stopEngine();
+        vehicle.turnRight();
+        vehicle.turnRight();
+        vehicle.startEngine();
+        vehicle.gas((vehicle.getCurrentSpeed()/2));
+    }
+
     /* Each step the TimerListener moves all the cars in the list and tells the
      * view to update its images. Change this method to your needs.
      * */
@@ -48,7 +62,10 @@ public class Application {
                 car.move();
                 int x = (int) Math.round(car.getPositionX());
                 int y = (int) Math.round(car.getPositionY());
-                Collision.checkCollision(car);
+
+                if (Collision.checkCollision(x, y)) {
+                    stopAndTurnAround(car);
+                }
                 frame.drawPanel.moveit(x, y, index);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
