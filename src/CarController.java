@@ -64,7 +64,7 @@ public class CarController {
         }
     }
 
-    void start(){
+    protected void start(){
         for(Vehicle car : app.cars){
             car.startEngine();
 
@@ -72,7 +72,7 @@ public class CarController {
 
     }
 
-    void stop(){
+    protected void stop(){
         for(Vehicle car : app.cars){
             car.stopEngine();
 
