@@ -21,6 +21,7 @@ public class DrawPanel extends JPanel {
         carPoints.get(index).y = y;
     }
 
+
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
         this.setDoubleBuffered(true);

@@ -16,22 +16,20 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Vehicle car : cars
-        ) {
+        for (Vehicle car : app.cars) {
             car.gas(gas);
         }
     }
 
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Vehicle car : cars
-        ) {
+        for (Vehicle car : app.cars) {
             car.brake(brake);
         }
     }
 
     void turboOn(){
-        for (Vehicle car : cars) {
+        for (Vehicle car : app.cars) {
             if (car.modelName.equals("Saab95")) {
                 Saab95 saab = (Saab95) car;
                 saab.setTurboOn();
@@ -40,7 +38,7 @@ public class CarController {
     }
 
     void turboOff(){
-        for (Vehicle car : cars) {
+        for (Vehicle car : app.cars) {
             if (car.modelName.equals("Saab95")) {
                 Saab95 saab = (Saab95) car;
                 saab.setTurboOff();
@@ -49,7 +47,7 @@ public class CarController {
     }
 
     void lowerBed(){
-        for (Vehicle car : cars) {
+        for (Vehicle car : app.cars) {
             if (car.modelName.equals("Scania")) {
                 Scania scania = (Scania) car;
                 scania.lowerTrailer(70);
@@ -58,7 +56,7 @@ public class CarController {
     }
 
     void liftBed(){
-        for (Vehicle car : cars) {
+        for (Vehicle car : app.cars) {
             if (car.modelName.equals("Scania")) {
                 Scania scania = (Scania) car;
                 scania.raiseTrailer(70);
@@ -67,7 +65,7 @@ public class CarController {
     }
 
     void start(){
-        for(Vehicle car : cars){
+        for(Vehicle car : app.cars){
             car.startEngine();
 
         }
@@ -75,7 +73,7 @@ public class CarController {
     }
 
     void stop(){
-        for(Vehicle car : cars){
+        for(Vehicle car : app.cars){
             car.stopEngine();
 
         }
