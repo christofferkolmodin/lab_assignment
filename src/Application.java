@@ -14,7 +14,7 @@ public class Application {
     // The frame that represents this instance View of the MVC pattern
     static CarView frame;
     Collision collision;
-    static ArrayList<Vehicle> cars = new ArrayList<>();
+    ArrayList<Vehicle> cars = new ArrayList<>();
     public static void main(String[] args) {
         // Instance of this class
 
