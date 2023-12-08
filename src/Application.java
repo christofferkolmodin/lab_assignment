@@ -59,8 +59,6 @@ public class Application {
             volvo.yPosition = cars.size() * 60;
 
             cars.add(volvo);
-
-            System.out.println(cars.size());
         }
 
     }

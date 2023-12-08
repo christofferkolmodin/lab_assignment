@@ -26,7 +26,6 @@ public class DrawPanel extends JPanel {
                 } if (length < carPoints.size()){
                     carImages.remove(length);
                     carPoints.remove(length);
-                    System.out.println(length);
 
                 }
                 carPoints.get(index).x = x;
@@ -35,7 +34,7 @@ public class DrawPanel extends JPanel {
             }if(length == 0){
                 carImages.clear();
                 carPoints.clear();
-                System.out.println("Clear");
+
 
             }}catch(IOException e){
             System.out.println("Exception error");
