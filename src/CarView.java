@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
  * It initializes with being center on the screen and attaching it's controller in it's state.
  * It communicates with the Controller by calling methods of it when an action fires of in
  * each of it's components.
- * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
 public class CarView extends JFrame implements VehicleObserver {
@@ -18,14 +17,11 @@ public class CarView extends JFrame implements VehicleObserver {
     private static final int Y = 800;
     // The controller member
     CarController carC;
-
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
-
     JPanel controlPanel = new JPanel();
-
     JPanel gasPanel = new JPanel();
     JSpinner gasSpinner = new JSpinner();
-    int gasAmount = 0;
+    private int gasAmount = 0;
     JLabel gasLabel = new JLabel("Amount of gas");
 
     JButton gasButton = new JButton("Gas");
@@ -38,8 +34,6 @@ public class CarView extends JFrame implements VehicleObserver {
     JButton stopButton = new JButton("Stop all cars");
     JButton addCar = new JButton("Add Vehicle");
     JButton removeVehicle = new JButton("Remove Vehicle");
-
-
 
     // Constructor
     public CarView(String framename){
@@ -196,9 +190,6 @@ public class CarView extends JFrame implements VehicleObserver {
             }
         });
 
-
-
-
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 
@@ -211,6 +202,4 @@ public class CarView extends JFrame implements VehicleObserver {
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
-
 }

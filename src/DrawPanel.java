@@ -9,7 +9,6 @@ import javax.swing.*;
 // This panel represent the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel {
-
     ArrayList<BufferedImage> carImages;
     // To keep track of a single cars position
     ArrayList<Point> carPoints;
@@ -38,6 +37,7 @@ public class DrawPanel extends JPanel {
         }
 
     }
+
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
