@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JFrame{
+public class CarView extends JFrame implements VehicleObserver {
     private static final int X = 800;
     private static final int Y = 800;
     // The controller member
@@ -46,6 +46,17 @@ public class CarView extends JFrame{
         carC = new CarController();
         //NOTE: Is the array updated, and is it necessary?
         initComponents(framename);
+    }
+
+    public void updateVehiclePosition(int positionX, int positionY, int arrayListIndex, int vehicleListSize) {
+        if (arrayListIndex == 0 && vehicleListSize == 0){
+            drawPanel.carImages.clear();
+            drawPanel.carPoints.clear();
+            drawPanel.repaint();
+        }else {
+            drawPanel.moveit(positionX, positionY, arrayListIndex, vehicleListSize);
+            drawPanel.repaint();
+        }
     }
 
     // Sets everything in place and fits everything
@@ -200,4 +211,6 @@ public class CarView extends JFrame{
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+
 }

@@ -16,32 +16,30 @@ public class DrawPanel extends JPanel {
     ArrayList<Point> carPoints;
 
     // TODO: Make this general for all cars
-    void moveit(int x, int y, int index, int length) {
+    void moveit(int positionX, int positionY, int vehicleListIndex, int vehicleListSize) {
         try {
-            if(length > 0){
-                if (length > carPoints.size()) {
+            if(vehicleListSize > 0){
+                if (vehicleListSize > carPoints.size()) {
                     carImages.add(ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"))));
                     carPoints.add(new Point());
 
-                } if (length < carPoints.size()){
-                    carImages.remove(length);
-                    carPoints.remove(length);
+                } if (vehicleListSize < carPoints.size()){
+                    carImages.remove(vehicleListSize);
+                    carPoints.remove(vehicleListSize);
 
                 }
-                carPoints.get(index).x = x;
-                carPoints.get(index).y = y;
+                carPoints.get(vehicleListIndex).x = positionX;
+                carPoints.get(vehicleListIndex).y = positionY;
 
-            }if(length == 0){
+            }if(vehicleListSize == 0){
                 carImages.clear();
                 carPoints.clear();
-
-
-            }}catch(IOException e){
+            }
+        }catch(IOException e){
             System.out.println("Exception error");
         }
 
     }
-
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {

@@ -1,9 +1,3 @@
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
-
 /*
  * This class represents the Controller part in the MVC pattern.
  * It's responsibilities is to listen to the View and responds in a appropriate manner by
@@ -11,26 +5,24 @@ import java.util.Collection;
  */
 
 public class CarController {
-
-    Application app = new Application();
-
+    UpdateVehicle update = new UpdateVehicle();
     // Calls the gas method for each car once
     protected void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Vehicle car : app.cars) {
+        for (Vehicle car : update.vehicles) {
             car.gas(gas);
         }
     }
 
     protected void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Vehicle car : app.cars) {
+        for (Vehicle car : update.vehicles) {
             car.brake(brake);
         }
     }
 
     protected void turboOn(){
-        for (Vehicle car : app.cars) {
+        for (Vehicle car : update.vehicles) {
             if (car.modelName.equals("Saab95")) {
                 Saab95 saab = (Saab95) car;
                 saab.setTurboOn();
@@ -39,7 +31,7 @@ public class CarController {
     }
 
     protected void turboOff(){
-        for (Vehicle car : app.cars) {
+        for (Vehicle car : update.vehicles) {
             if (car.modelName.equals("Saab95")) {
                 Saab95 saab = (Saab95) car;
                 saab.setTurboOff();
@@ -48,7 +40,7 @@ public class CarController {
     }
 
     protected void lowerBed(){
-        for (Vehicle car : app.cars) {
+        for (Vehicle car : update.vehicles) {
             if (car.modelName.equals("Scania")) {
                 Scania scania = (Scania) car;
                 scania.lowerTrailer(70);
@@ -57,7 +49,7 @@ public class CarController {
     }
 
     protected void liftBed(){
-        for (Vehicle car : app.cars) {
+        for (Vehicle car : update.vehicles) {
             if (car.modelName.equals("Scania")) {
                 Scania scania = (Scania) car;
                 scania.raiseTrailer(70);
@@ -66,22 +58,23 @@ public class CarController {
     }
 
     protected void start(){
-        for(Vehicle car : app.cars){
+        for(Vehicle car : update.vehicles){
             car.startEngine();
         }
     }
 
     protected void stop(){
-        for(Vehicle car : app.cars){
+        for(Vehicle car : update.vehicles){
             car.stopEngine();
         }
     }
 
     protected void addCar(){
-        app.addVehicle();
+        update.addVehicle(new Volvo240());
 
     }
     protected void removeCar(){
-      app.removeVehicle();
+        update.removeVehicle();
+
     }
 }

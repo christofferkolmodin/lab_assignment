@@ -1,18 +1,18 @@
 public class Collision {
+    //
+    private static final int rightWall = 700, leftWall = - 10, roof = 740, floor = - 60;
     public static boolean checkCollision(int x, int y) {
-//        System.out.println(vehicle.getPositionX());
-//        System.out.println(vehicle.getPositionY());
 
-        if (x > 700) {
+        if (x > rightWall) {
             return true;
 
-        } else if (x < -10) {
+        } else if (x < leftWall) {
             return true;
 
-        } else if (y > 740) {
+        } else if (y > roof) {
             return true;
 
-        } else if (y < -60) {
+        } else if (y < floor) {
             return true;
         }
 
