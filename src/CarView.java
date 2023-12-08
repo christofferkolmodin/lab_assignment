@@ -32,10 +32,14 @@ public class CarView extends JFrame{
     JButton brakeButton = new JButton("Brake");
     JButton turboOnButton = new JButton("Saab Turbo on");
     JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Lift Bed");
+    JButton liftBedButton = new JButton("Lift Bed");
+    JButton lowerBedButton = new JButton("Lower Bed");
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
+    JButton addCar = new JButton("Add Vehicle");
+    JButton removeVehicle = new JButton("Remove Vehicle");
+
+
 
     // Constructor
     public CarView(String framename){
@@ -72,29 +76,34 @@ public class CarView extends JFrame{
 
         this.add(gasPanel);
 
-        controlPanel.setLayout(new GridLayout(2,4));
+        controlPanel.setLayout(new GridLayout(2,6));
 
         controlPanel.add(gasButton, 0);
         controlPanel.add(turboOnButton, 1);
         controlPanel.add(liftBedButton, 2);
-        controlPanel.add(brakeButton, 3);
-        controlPanel.add(turboOffButton, 4);
-        controlPanel.add(lowerBedButton, 5);
-        controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
-        this.add(controlPanel);
+        controlPanel.add(startButton, 3);
+        controlPanel.add(addCar, 4);
+
+
+        controlPanel.add(brakeButton, 5);
+        controlPanel.add(turboOffButton, 6);
+        controlPanel.add(lowerBedButton, 7);
+        controlPanel.add(stopButton, 8);
+        controlPanel.add(removeVehicle, 9);
+
+        controlPanel.setPreferredSize(new Dimension((X/2)+(X/4), 200));
         controlPanel.setBackground(Color.CYAN);
 
+        this.add(controlPanel);
 
-        startButton.setBackground(Color.blue);
-        startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X/5-15,200));
-        this.add(startButton);
+        //startButton.setBackground(Color.blue);
+        //startButton.setForeground(Color.green);
+        //startButton.setPreferredSize(new Dimension(X/5-15,200));
 
 
-        stopButton.setBackground(Color.red);
-        stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X/5-15,200));
-        this.add(stopButton);
+        //stopButton.setBackground(Color.red);
+        //stopButton.setForeground(Color.black);
+        //stopButton.setPreferredSize(new Dimension(X/5-15,200));
 
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
@@ -159,6 +168,25 @@ public class CarView extends JFrame{
 
             }
         });
+
+        addCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.addCar();
+
+            }
+        });
+
+        removeVehicle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.removeCar();
+
+            }
+        });
+
+
+
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();

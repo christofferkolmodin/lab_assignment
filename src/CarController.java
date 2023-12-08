@@ -76,4 +76,12 @@ public class CarController {
             car.stopEngine();
         }
     }
+
+    protected void addCar(){
+        app.addVehicle();
+
+    }
+    protected void removeCar(){
+      app.removeVehicle();
+    }
 }

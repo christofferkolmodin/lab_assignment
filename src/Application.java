@@ -13,7 +13,7 @@ public class Application {
     private static Timer timer = new Timer(delay, new TimerListener());
     // The frame that represents this instance View of the MVC pattern
     static CarView frame;
-    static Collection<Vehicle> cars = new ArrayList<>();
+    static ArrayList<Vehicle> cars = new ArrayList<>();
 
     public static void main(String[] args) {
         // Instance of this class
@@ -23,11 +23,11 @@ public class Application {
         cars.add(volvo);
 
         Saab95 saab = new Saab95();
-        saab.yPosition = 100;
+        saab.yPosition = 60;
         cars.add(saab);
 
         Scania scania = new Scania();
-        scania.yPosition = 200;
+        scania.yPosition = 120;
         cars.add(scania);
 
 
@@ -52,6 +52,32 @@ public class Application {
         vehicle.gas((vehicle.getCurrentSpeed()/2));
     }
 
+    protected static void addVehicle(){
+
+        if(cars.size() < 10) {
+            Vehicle volvo = new Volvo240();
+            volvo.yPosition = cars.size() * 60;
+
+            cars.add(volvo);
+
+            System.out.println(cars.size());
+        }
+
+    }
+
+    protected static void removeVehicle(){
+        if(!cars.isEmpty()){
+            cars.remove(cars.size() - 1);
+
+            if(cars.isEmpty()){
+                frame.drawPanel.moveit(0,0, 0, 0);
+
+            }
+        }
+
+    }
+
+
     /* Each step the TimerListener moves all the cars in the list and tells the
      * view to update its images. Change this method to your needs.
      * */
@@ -66,10 +92,14 @@ public class Application {
                 if (Collision.checkCollision(x, y)) {
                     stopAndTurnAround(car);
                 }
-                frame.drawPanel.moveit(x, y, index);
+
+                frame.drawPanel.moveit(x, y, index, cars.size());
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
                 index++;
+            }
+            if (cars.isEmpty()){
+                frame.drawPanel.repaint();
             }
         }
     }

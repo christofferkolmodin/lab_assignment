@@ -16,9 +16,31 @@ public class DrawPanel extends JPanel {
     ArrayList<Point> carPoints;
 
     // TODO: Make this general for all cars
-    void moveit(int x, int y, int index) {
-        carPoints.get(index).x = x;
-        carPoints.get(index).y = y;
+    void moveit(int x, int y, int index, int length) {
+        try {
+            if(length > 0){
+                if (length > carPoints.size()) {
+                    carImages.add(ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"))));
+                    carPoints.add(new Point());
+
+                } if (length < carPoints.size()){
+                    carImages.remove(length);
+                    carPoints.remove(length);
+                    System.out.println(length);
+
+                }
+                carPoints.get(index).x = x;
+                carPoints.get(index).y = y;
+
+            }if(length == 0){
+                carImages.clear();
+                carPoints.clear();
+                System.out.println("Clear");
+
+            }}catch(IOException e){
+            System.out.println("Exception error");
+        }
+
     }
 
 
@@ -53,8 +75,10 @@ public class DrawPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i < carImages.size(); i++) {
-            g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null); // see javadoc for more info on the parameters
+        if(!carImages.isEmpty()) {
+            for (int i = 0; i < carImages.size(); i++) {
+                g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null); // see javadoc for more info on the parameters
+            }
         }
     }
 }
