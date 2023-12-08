@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collection;
 
 public class UpdateVehicle<V extends Vehicle> implements ActionListener {
     private static final int delay = 50;
