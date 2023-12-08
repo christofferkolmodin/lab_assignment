@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Collection;
 
 public class UpdateVehicle<V extends Vehicle> implements ActionListener {
-    /* Each step the TimerListener moves all the cars in the list and tells the
-     * view to update its images. Change this method to your needs.
-     * */
     private static final int delay = 50;
     private static Timer timer = new Timer(delay, new UpdateVehicle());
     static ArrayList<Vehicle> vehicles = new ArrayList<>();
