@@ -31,6 +31,12 @@ public class UpdateVehicle<V extends Vehicle> implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         int index = 0;
+        if (vehicles.isEmpty()){
+            for (VehicleObserver observer : observers){
+                observer.updateVehiclePosition(0, 0, 0, vehicles.size());
+            }
+
+        }
         for (Vehicle vehicle : vehicles) {
             vehicle.move();
             int x = (int) Math.round(vehicle.getPositionX());
@@ -39,12 +45,9 @@ public class UpdateVehicle<V extends Vehicle> implements ActionListener {
             if (Collision.checkCollision(x, y)) {
                 stopAndTurnAround(vehicle);
             }
+
             for (VehicleObserver observer : observers) {
                 observer.updateVehiclePosition(x, y, index, vehicles.size());
-
-                if (vehicles.isEmpty()){
-                    observer.updateVehiclePosition(0, 0, 0, vehicles.size());
-                }
                 index++;
             }
         }
