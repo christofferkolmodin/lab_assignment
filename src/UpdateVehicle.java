@@ -70,5 +70,75 @@ public class UpdateVehicle<V extends Vehicle> implements ActionListener {
         vehicle.turnRight();
         vehicle.turnRight();
     }
+
+    protected void gas(int amount) {
+        double gas = ((double) amount) / 100;
+        for (Vehicle car : vehicles) {
+            car.gas(gas);
+        }
+    }
+
+    protected void brake(int amount) {
+        double brake = ((double) amount) / 100;
+        for (Vehicle car : vehicles) {
+            car.brake(brake);
+        }
+    }
+
+    protected void turboOn(){
+        for (Vehicle car : vehicles) {
+            if (car.modelName.equals("Saab95")) {
+                Saab95 saab = (Saab95) car;
+                saab.setTurboOn();
+            }
+        }
+    }
+
+    protected void turboOff(){
+        for (Vehicle car : vehicles) {
+            if (car.modelName.equals("Saab95")) {
+                Saab95 saab = (Saab95) car;
+                saab.setTurboOff();
+            }
+        }
+    }
+
+    protected void lowerBed(){
+        for (Vehicle car : vehicles) {
+            if (car.modelName.equals("Scania")) {
+                Scania scania = (Scania) car;
+                scania.lowerTrailer(70);
+            }
+        }
+    }
+
+    protected void liftBed(){
+        for (Vehicle car : vehicles) {
+            if (car.modelName.equals("Scania")) {
+                Scania scania = (Scania) car;
+                scania.raiseTrailer(70);
+            }
+        }
+    }
+
+    protected void start(){
+        for(Vehicle car : vehicles){
+            car.startEngine();
+        }
+    }
+
+    protected void stop(){
+        for(Vehicle car : vehicles){
+            car.stopEngine();
+        }
+    }
+
+    protected void addCar(){
+        addVehicle(new Volvo240());
+
+    }
+    protected void removeCar(){
+        removeVehicle();
+    }
 }
 	
