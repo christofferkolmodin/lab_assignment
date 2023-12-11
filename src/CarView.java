@@ -1,9 +1,14 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -12,111 +17,83 @@ import java.awt.event.ActionListener;
  * each of it's components.
  **/
 
-public class CarView extends JFrame implements VehicleObserver {
-    private static final int X = 800;
-    private static final int Y = 800;
-    // The controller member
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
-    JPanel controlPanel = new JPanel();
-    JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
-    private int gasAmount = 0;
-    JLabel gasLabel = new JLabel("Amount of gas");
-
-    JButton gasButton = new JButton("Gas");
-    JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Saab Turbo on");
-    JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Bed");
-    JButton startButton = new JButton("Start all cars");
-    JButton stopButton = new JButton("Stop all cars");
-    JButton addCar = new JButton("Add Vehicle");
-    JButton removeVehicle = new JButton("Remove Vehicle");
+public class CarView extends JPanel implements VehicleObserver {
+    
+    ArrayList<BufferedImage> carImages;
+    // To keep track of a single cars position
+    ArrayList<Point> carPoints;
 
     // Constructor
-    public CarView(String framename){
-        //NOTE: Is the array updated, and is it necessary?
-        initComponents(framename);
-    }
+    public CarView(int x, int y) {
 
+        this.setDoubleBuffered(true);
+        this.setPreferredSize(new Dimension(x, y-240));
+        this.setBackground(Color.green);
+        // Print an error message in case file is not found with a try/catch block
+        try {
+            // You can remove the "pics" part if running outside of IntelliJ and
+            // everything is in the same main folder.
+            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
+            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
+            // if you are starting in IntelliJ.
+            carImages = new ArrayList<>();
+            carPoints = new ArrayList<>();
+
+            carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Volvo240.jpg"))));
+            carPoints.add(new Point());
+            carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Saab95.jpg"))));
+            carPoints.add(new Point());
+            carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Scania.jpg"))));
+            carPoints.add(new Point());
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     public void updateVehiclePosition(int positionX, int positionY, int arrayListIndex, int vehicleListSize) {
         if (arrayListIndex == 0 && vehicleListSize == 0){
-            drawPanel.carImages.clear();
-            drawPanel.carPoints.clear();
-            drawPanel.repaint();
+            this.carImages.clear();
+            this.carPoints.clear();
+            this.repaint();
         }else {
-            drawPanel.moveit(positionX, positionY, arrayListIndex, vehicleListSize);
-            drawPanel.repaint();
+            this.moveit(positionX, positionY, arrayListIndex, vehicleListSize);
+            this.repaint();
         }
     }
 
-    // Sets everything in place and fits everything
-    private void initComponents(String title) {
+    void moveit(int positionX, int positionY, int vehicleListIndex, int vehicleListSize) {
+        try {
+            if(vehicleListSize > 0){
+                if (vehicleListSize > carPoints.size()) {
+                    carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Volvo240.jpg"))));
+                    carPoints.add(new Point());
 
-        this.setTitle(title);
-        this.setPreferredSize(new Dimension(X,Y));
-        this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+                } if (vehicleListSize < carPoints.size()){
+                    carImages.remove(vehicleListSize);
+                    carPoints.remove(vehicleListSize);
 
-        this.add(drawPanel);
+                }
+                carPoints.get(vehicleListIndex).x = positionX;
+                carPoints.get(vehicleListIndex).y = positionY;
 
-        SpinnerModel spinnerModel =
-                new SpinnerNumberModel(0, //initial value
-                        0, //min
-                        100, //max
-                        1);//step
-        gasSpinner = new JSpinner(spinnerModel);
-        gasSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                gasAmount = (int) ((JSpinner)e.getSource()).getValue();
+            }if(vehicleListSize == 0){
+                carImages.clear();
+                carPoints.clear();
             }
-        });
+        }catch(IOException e){
+            System.out.println("Exception error");
+        }
 
-        gasPanel.setLayout(new BorderLayout());
-        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
-        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
+    }
 
-        this.add(gasPanel);
-
-        controlPanel.setLayout(new GridLayout(2,6));
-
-        controlPanel.add(gasButton, 0);
-        controlPanel.add(turboOnButton, 1);
-        controlPanel.add(liftBedButton, 2);
-        controlPanel.add(startButton, 3);
-        controlPanel.add(addCar, 4);
-
-
-        controlPanel.add(brakeButton, 5);
-        controlPanel.add(turboOffButton, 6);
-        controlPanel.add(lowerBedButton, 7);
-        controlPanel.add(stopButton, 8);
-        controlPanel.add(removeVehicle, 9);
-
-        controlPanel.setPreferredSize(new Dimension((X/2)+(X/4), 200));
-        controlPanel.setBackground(Color.CYAN);
-
-        this.add(controlPanel);
-
-        //startButton.setBackground(Color.blue);
-        //startButton.setForeground(Color.green);
-        //startButton.setPreferredSize(new Dimension(X/5-15,200));
-
-
-        //stopButton.setBackground(Color.red);
-        //stopButton.setForeground(Color.black);
-        //stopButton.setPreferredSize(new Dimension(X/5-15,200));
-
-        // Make the frame pack all it's components by respecting the sizes if possible.
-        this.pack();
-
-        // Get the computer screen resolution
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        // Center the frame
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        // Make the frame visible
-        this.setVisible(true);
-        // Make sure the frame exits when "x" is pressed
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // This method is called each time the panel updates/refreshes/repaints itself
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if(!carImages.isEmpty()) {
+            for (int i = 0; i < carImages.size(); i++) {
+                g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null); // see javadoc for more info on the parameters
+            }
+        }
     }
 }

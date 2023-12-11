@@ -132,13 +132,5 @@ public class UpdateVehicle<V extends Vehicle> implements ActionListener {
             car.stopEngine();
         }
     }
-
-    protected void addCar(){
-        addVehicle(new Volvo240());
-
-    }
-    protected void removeCar(){
-        removeVehicle();
-    }
 }
 	

@@ -11,9 +11,9 @@ public class Application {
 
         Scania scania = new Scania();
         update.addVehicle(scania);
-        // Send a CarView instance to the VehicleObservers array
-        update.addObserver(new CarView("CarSim 1.0"));
-        // Initiate vehicle status check
+
+        new CarController("CarSim 1.0");
+
         update.startTimer();
     }
 }
