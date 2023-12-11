@@ -3,78 +3,93 @@
  * It's responsibilities is to listen to the View and responds in a appropriate manner by
  * modifying the model state and the updating the view.
  */
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CarController {
+public class CarController extends JFrame {
+    CarView carview = new CarView("CarSim 1.0");
     UpdateVehicle update = new UpdateVehicle();
+
     // Calls the gas method for each car once
-    protected void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (Vehicle car : update.vehicles) {
-            car.gas(gas);
-        }
-    }
+    // This actionListener is for the gas button only
 
-    protected void brake(int amount) {
-        double brake = ((double) amount) / 100;
-        for (Vehicle car : update.vehicles) {
-            car.brake(brake);
-        }
-    }
-
-    protected void turboOn(){
-        for (Vehicle car : update.vehicles) {
-            if (car.modelName.equals("Saab95")) {
-                Saab95 saab = (Saab95) car;
-                saab.setTurboOn();
+        carview.gasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                update.gas(gasAmount);
             }
+        });
+
+        brakeButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.brake(gasAmount);
         }
-    }
+    });
 
-    protected void turboOff(){
-        for (Vehicle car : update.vehicles) {
-            if (car.modelName.equals("Saab95")) {
-                Saab95 saab = (Saab95) car;
-                saab.setTurboOff();
-            }
+        turboOnButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.turboOn();
+
         }
-    }
+    });
 
-    protected void lowerBed(){
-        for (Vehicle car : update.vehicles) {
-            if (car.modelName.equals("Scania")) {
-                Scania scania = (Scania) car;
-                scania.lowerTrailer(70);
-            }
+        turboOffButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.turboOff();
+
         }
-    }
+    });
 
-    protected void liftBed(){
-        for (Vehicle car : update.vehicles) {
-            if (car.modelName.equals("Scania")) {
-                Scania scania = (Scania) car;
-                scania.raiseTrailer(70);
-            }
+        liftBedButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.liftBed();
+
         }
-    }
+    });
 
-    protected void start(){
-        for(Vehicle car : update.vehicles){
-            car.startEngine();
+        lowerBedButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.lowerBed();
+
         }
-    }
+    });
 
-    protected void stop(){
-        for(Vehicle car : update.vehicles){
-            car.stopEngine();
+        stopButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.stop();
+
         }
-    }
+    });
 
-    protected void addCar(){
-        update.addVehicle(new Volvo240());
+        startButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.start();
 
-    }
-    protected void removeCar(){
-        update.removeVehicle();
+        }
+    });
 
-    }
+        addCar.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.addCar();
+
+        }
+    });
+
+        removeVehicle.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update.removeCar();
+
+        }
 }
