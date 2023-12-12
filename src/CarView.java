@@ -1,10 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +16,6 @@ import java.util.Objects;
 public class CarView extends JPanel implements VehicleObserver {
     
     ArrayList<BufferedImage> carImages;
-    // To keep track of a single cars position
-    ArrayList<Point> carPoints;
 
     // Constructor
     public CarView(int x, int y) {
@@ -31,59 +25,40 @@ public class CarView extends JPanel implements VehicleObserver {
         this.setBackground(Color.green);
         // Print an error message in case file is not found with a try/catch block
         try {
-            // You can remove the "pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
-            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
-            // if you are starting in IntelliJ.
             carImages = new ArrayList<>();
-            carPoints = new ArrayList<>();
-
             carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Volvo240.jpg"))));
-            carPoints.add(new Point());
             carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Saab95.jpg"))));
-            carPoints.add(new Point());
             carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Scania.jpg"))));
-            carPoints.add(new Point());
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-    public void updateVehiclePosition(int positionX, int positionY, int arrayListIndex, int vehicleListSize) {
-        if (arrayListIndex == 0 && vehicleListSize == 0){
+
+    public void updateVehiclePosition() {
+        if (UpdateVehicle.vehicles.isEmpty()) {
             this.carImages.clear();
-            this.carPoints.clear();
-            this.repaint();
-        }else {
-            this.moveit(positionX, positionY, arrayListIndex, vehicleListSize);
             this.repaint();
         }
-    }
-
-    void moveit(int positionX, int positionY, int vehicleListIndex, int vehicleListSize) {
-        try {
-            if(vehicleListSize > 0){
-                if (vehicleListSize > carPoints.size()) {
-                    carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Volvo240.jpg"))));
-                    carPoints.add(new Point());
-
-                } if (vehicleListSize < carPoints.size()){
-                    carImages.remove(vehicleListSize);
-                    carPoints.remove(vehicleListSize);
-
+        else {
+            try {
+                if(!UpdateVehicle.vehicles.isEmpty()){
+                    if (UpdateVehicle.vehicles.size() > carImages.size()) {
+                        carImages.add(ImageIO.read(Objects.requireNonNull(CarView.class.getResourceAsStream("pics/Volvo240.jpg"))));
+                        this.repaint();
+                    }
                 }
-                carPoints.get(vehicleListIndex).x = positionX;
-                carPoints.get(vehicleListIndex).y = positionY;
-
-            }if(vehicleListSize == 0){
-                carImages.clear();
-                carPoints.clear();
+                if (UpdateVehicle.vehicles.size() < carImages.size()) {
+                    carImages.remove(UpdateVehicle.vehicles.size());
+                }
+                if (UpdateVehicle.vehicles.isEmpty()) {
+                    this.carImages.clear();
+                }
+                this.repaint();
+                } catch (IOException e) {
+                System.out.println("Exception error");
             }
-        }catch(IOException e){
-            System.out.println("Exception error");
         }
-
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
@@ -92,7 +67,8 @@ public class CarView extends JPanel implements VehicleObserver {
         super.paintComponent(g);
         if(!carImages.isEmpty()) {
             for (int i = 0; i < carImages.size(); i++) {
-                g.drawImage(carImages.get(i), carPoints.get(i).x, carPoints.get(i).y, null); // see javadoc for more info on the parameters
+                g.drawImage(carImages.get(i), (int) Math.round(UpdateVehicle.vehicles.get(i).getPositionX()),
+                        (int) Math.round(UpdateVehicle.vehicles.get(i).getPositionY()), null); // see javadoc for more info on the parameters
             }
         }
     }

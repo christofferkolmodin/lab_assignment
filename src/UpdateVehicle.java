@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +31,14 @@ public class UpdateVehicle<V extends Vehicle> implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        int index = 0;
-        if (vehicles.isEmpty()){
-            for (VehicleObserver observer : observers){
-                observer.updateVehiclePosition(0, 0, 0, vehicles.size());
+        if (vehicles.isEmpty()) {
+            for (VehicleObserver observer : observers) {
+                try {
+                    observer.updateVehiclePosition();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-
         }
         for (Vehicle vehicle : vehicles) {
             vehicle.move();
@@ -47,8 +50,11 @@ public class UpdateVehicle<V extends Vehicle> implements ActionListener {
             }
 
             for (VehicleObserver observer : observers) {
-                observer.updateVehiclePosition(x, y, index, vehicles.size());
-                index++;
+                try {
+                    observer.updateVehiclePosition();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
     }
